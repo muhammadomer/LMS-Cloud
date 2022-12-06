@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SinglePoint_CloudModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Organization" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AllowRiskManager" Type="bit" Nullable="false" />
+          <Property Name="AllowBusinessCard" Type="bit" Nullable="false" />
+          <Property Name="AllowFileRepository" Type="bit" Nullable="false" />
+          <Property Name="AllowDAC6" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="SupportEmails" Type="nvarchar(max)" />
+          <Property Name="AllowTrainingCourses" Type="bit" Nullable="false" />
+          <Property Name="TrainingCoursesCompanyId" Type="int" Nullable="false" />
+          <Property Name="allowadmincourseTrainingCourses" Type="bit" />
+          <Property Name="CompanyLogo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ActivityLog">
+          <Key>
+            <PropertyRef Name="ActivityLogId" />
+          </Key>
+          <Property Name="ActivityLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ActivityDetail" Type="nvarchar" MaxLength="250" />
+          <Property Name="ActivityTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SMTPHost" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SMTPUserName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SMTPPassword" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SMTPPort" Type="int" Nullable="false" />
+          <Property Name="EnableSSL" Type="bit" Nullable="false" />
+          <Property Name="TwoFAEnable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserFirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserLastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserEmail" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="LastPasswordChange" Type="datetime" />
+          <Property Name="ResetHash" Type="nvarchar(max)" />
+          <Property Name="ResetRequestDate" Type="datetime" />
+          <Property Name="WrongPaswordAttempts" Type="int" Nullable="false" />
+          <Property Name="LicenseAgreement" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" />
+          <Property Name="GoogleAuthenticatorSecretKey" Type="nvarchar(max)" />
+          <Property Name="IsGoogleAuthenticatorEnabled" Type="bit" />
+          <Property Name="TwoFAEmailCode" Type="nvarchar(max)" />
+          <Property Name="TwoFAEmailCodeDateTime" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_SinglePoint_Cloud.dbo.vw_GetActivityLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_GetActivityLog">
+          <Key>
+            <PropertyRef Name="FullName" />
+          </Key>
+          <Property Name="ActivityDetail" Type="nvarchar" MaxLength="250" />
+          <Property Name="ActivityTime" Type="varchar" MaxLength="61" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="101" Nullable="false" />
+        </EntityType>
+        <Function Name="CleanCloudDatabase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CreateCloneDatabase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sourceDBName" Type="nvarchar" Mode="In" />
+          <Parameter Name="cloneDBName" Type="nvarchar" Mode="In" />
+          <Parameter Name="backupPath" Type="nvarchar" Mode="In" />
+          <Parameter Name="restorePath" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ManageUserForClientDatabase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CompanyName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Filter" Type="nvarchar" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Phone" Type="nvarchar" Mode="In" />
+          <Parameter Name="Username" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ProfileImage" Type="nvarchar" Mode="In" />
+          <Parameter Name="AccountId" Type="varchar" Mode="In" />
+          <Parameter Name="AllowRiskManager" Type="int" Mode="In" />
+          <Parameter Name="AllowFileRepository" Type="int" Mode="In" />
+          <Parameter Name="AllowBusinessCard" Type="int" Mode="In" />
+          <Parameter Name="AllowDAC6" Type="int" Mode="In" />
+          <Parameter Name="AllowTrainingCourses" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="SinglePoint_CloudModelStoreContainer">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActivityLog" EntityType="Self.ActivityLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_GetActivityLog" EntityType="Self.vw_GetActivityLog" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_GetActivityLog].[ActivityDetail] AS [ActivityDetail], 
+    [vw_GetActivityLog].[ActivityTime] AS [ActivityTime], 
+    [vw_GetActivityLog].[FullName] AS [FullName]
+    FROM [dbo].[vw_GetActivityLog] AS [vw_GetActivityLog]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SinglePoint_CloudModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SinglePoint_CloudEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ActivityLog" EntityType="SinglePoint_CloudModel.ActivityLog" />
+          <EntitySet Name="vw_GetActivityLog" EntityType="SinglePoint_CloudModel.vw_GetActivityLog" />
+          <EntitySet Name="Settings" EntityType="SinglePoint_CloudModel.Settings" />
+          <EntitySet Name="Users" EntityType="SinglePoint_CloudModel.Users" />
+          <FunctionImport Name="CleanCloudDatabase" />
+          <FunctionImport Name="CreateCloneDatabase">
+            <Parameter Name="sourceDBName" Mode="In" Type="String" />
+            <Parameter Name="cloneDBName" Mode="In" Type="String" />
+            <Parameter Name="backupPath" Mode="In" Type="String" />
+            <Parameter Name="restorePath" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ManageUserForClientDatabase">
+            <Parameter Name="CompanyName" Mode="In" Type="String" />
+            <Parameter Name="Filter" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="ProfileImage" Mode="In" Type="String" />
+            <Parameter Name="AccountId" Mode="In" Type="String" />
+            <Parameter Name="AllowRiskManager" Mode="In" Type="Int32" />
+            <Parameter Name="AllowFileRepository" Mode="In" Type="Int32" />
+            <Parameter Name="AllowBusinessCard" Mode="In" Type="Int32" />
+            <Parameter Name="AllowDAC6" Mode="In" Type="Int32" />
+            <Parameter Name="AllowTrainingCourses" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Accounts" EntityType="SinglePoint_CloudModel.Accounts" />
+        </EntityContainer>
+        <EntityType Name="ActivityLog">
+          <Key>
+            <PropertyRef Name="ActivityLogId" />
+          </Key>
+          <Property Name="ActivityLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ActivityDetail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vw_GetActivityLog">
+          <Key>
+            <PropertyRef Name="FullName" />
+          </Key>
+          <Property Name="ActivityDetail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityTime" Type="String" MaxLength="61" FixedLength="false" Unicode="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="SMTPHost" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SMTPUserName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SMTPPassword" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SMTPPort" Type="Int32" Nullable="false" />
+          <Property Name="EnableSSL" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFAEnable" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserFirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserLastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserEmail" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="LastPasswordChange" Type="DateTime" Precision="3" />
+          <Property Name="ResetHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResetRequestDate" Type="DateTime" Precision="3" />
+          <Property Name="WrongPaswordAttempts" Type="Int32" Nullable="false" />
+          <Property Name="LicenseAgreement" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" />
+          <Property Name="GoogleAuthenticatorSecretKey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsGoogleAuthenticatorEnabled" Type="Boolean" />
+          <Property Name="TwoFAEmailCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TwoFAEmailCodeDateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Organization" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AllowRiskManager" Type="Boolean" Nullable="false" />
+          <Property Name="AllowBusinessCard" Type="Boolean" Nullable="false" />
+          <Property Name="AllowFileRepository" Type="Boolean" Nullable="false" />
+          <Property Name="AllowDAC6" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="SupportEmails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AllowTrainingCourses" Type="Boolean" Nullable="false" />
+          <Property Name="TrainingCoursesCompanyId" Type="Int32" Nullable="false" />
+          <Property Name="allowadmincourseTrainingCourses" Type="Boolean" />
+          <Property Name="CompanyLogo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SinglePoint_CloudModelStoreContainer" CdmEntityContainer="SinglePoint_CloudEntities">
+          <EntitySetMapping Name="ActivityLog">
+            <EntityTypeMapping TypeName="SinglePoint_CloudModel.ActivityLog">
+              <MappingFragment StoreEntitySet="ActivityLog">
+                <ScalarProperty Name="ActivityTime" ColumnName="ActivityTime" />
+                <ScalarProperty Name="ActivityDetail" ColumnName="ActivityDetail" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ActivityLogId" ColumnName="ActivityLogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_GetActivityLog">
+            <EntityTypeMapping TypeName="SinglePoint_CloudModel.vw_GetActivityLog">
+              <MappingFragment StoreEntitySet="vw_GetActivityLog">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ActivityTime" ColumnName="ActivityTime" />
+                <ScalarProperty Name="ActivityDetail" ColumnName="ActivityDetail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="SinglePoint_CloudModel.Settings">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="TwoFAEnable" ColumnName="TwoFAEnable" />
+                <ScalarProperty Name="EnableSSL" ColumnName="EnableSSL" />
+                <ScalarProperty Name="SMTPPort" ColumnName="SMTPPort" />
+                <ScalarProperty Name="SMTPPassword" ColumnName="SMTPPassword" />
+                <ScalarProperty Name="SMTPUserName" ColumnName="SMTPUserName" />
+                <ScalarProperty Name="SMTPHost" ColumnName="SMTPHost" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SinglePoint_CloudModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="TwoFAEmailCodeDateTime" ColumnName="TwoFAEmailCodeDateTime" />
+                <ScalarProperty Name="TwoFAEmailCode" ColumnName="TwoFAEmailCode" />
+                <ScalarProperty Name="IsGoogleAuthenticatorEnabled" ColumnName="IsGoogleAuthenticatorEnabled" />
+                <ScalarProperty Name="GoogleAuthenticatorSecretKey" ColumnName="GoogleAuthenticatorSecretKey" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="LicenseAgreement" ColumnName="LicenseAgreement" />
+                <ScalarProperty Name="WrongPaswordAttempts" ColumnName="WrongPaswordAttempts" />
+                <ScalarProperty Name="ResetRequestDate" ColumnName="ResetRequestDate" />
+                <ScalarProperty Name="ResetHash" ColumnName="ResetHash" />
+                <ScalarProperty Name="LastPasswordChange" ColumnName="LastPasswordChange" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+                <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CleanCloudDatabase" FunctionName="SinglePoint_CloudModel.Store.CleanCloudDatabase" />
+          <FunctionImportMapping FunctionImportName="CreateCloneDatabase" FunctionName="SinglePoint_CloudModel.Store.CreateCloneDatabase" />
+          <FunctionImportMapping FunctionImportName="ManageUserForClientDatabase" FunctionName="SinglePoint_CloudModel.Store.ManageUserForClientDatabase" />
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="SinglePoint_CloudModel.Accounts">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="CompanyLogo" ColumnName="CompanyLogo" />
+                <ScalarProperty Name="allowadmincourseTrainingCourses" ColumnName="allowadmincourseTrainingCourses" />
+                <ScalarProperty Name="TrainingCoursesCompanyId" ColumnName="TrainingCoursesCompanyId" />
+                <ScalarProperty Name="AllowTrainingCourses" ColumnName="AllowTrainingCourses" />
+                <ScalarProperty Name="SupportEmails" ColumnName="SupportEmails" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="AllowDAC6" ColumnName="AllowDAC6" />
+                <ScalarProperty Name="AllowFileRepository" ColumnName="AllowFileRepository" />
+                <ScalarProperty Name="AllowBusinessCard" ColumnName="AllowBusinessCard" />
+                <ScalarProperty Name="AllowRiskManager" ColumnName="AllowRiskManager" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Organization" ColumnName="Organization" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,306 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" style="margin-left: 0px; margin-right: 0px;">
+    <div class="col-md-6">
+        <div class="panel panel-default" style="height: 430px;">
+            <div class="panel-heading">
+                <div class="caption">
+                    <h3 class="panel-title"><i class="fa fa-edit panelIcon"></i>SMTP Settings</h3>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label">Mail Server</label><span class="required">*</span>
+                                    <input type="text" id="txtMailServer" value="@ViewBag.Settings.SMTPHost" class="form-control spinner" tabindex="2">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">SMTP Port</label><span class="required">*</span>
+                                    <input type="number" id="txtSMTPPort" value="@ViewBag.Settings.SMTPPort" class="form-control spinner" tabindex="2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Mail Username</label><span class="required">*</span>
+                            <input type="text" id="txtMailUsername" value="@ViewBag.Settings.SMTPUserName" class="form-control spinner" tabindex="2">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Mail Password</label><span class="required">*</span>
+                            <input type="password" id="txtMailPassword" value="@ViewBag.Settings.SMTPPassword" class="form-control spinner" tabindex="2">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Enable SSL</label><span class="required">*</span>
+                            @if (@ViewBag.Settings.EnableSSL)
+                            {
+                                <input type="checkbox" id="ckbEnableSSL" class="make-switch" tabindex="9" checked data-on-text="Yes" data-off-text="No" data-off-color="danger" data-on-color="default">
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="ckbEnableSSL" class="make-switch" tabindex="9" data-on-text="Yes" data-off-text="No" data-off-color="danger" data-on-color="default">
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions pull-right" style="margin-top: 10px;">
+                    <a class="btn purple" href="#ModalTestEmail" data-toggle="modal" style="margin-left: 1px;">Test</a>
+                    <a class="btn purple" id="btnSaveSMTPSettings">Save</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default" style="height:191px;">
+            <div class="panel-heading">
+                <div class="caption">
+                    <h3 class="panel-title"><i class="fa fa-edit panelIcon"></i>2FA Settings</h3>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Enable 2FA Authentication</label><span class="required">*</span>
+                            @if (ViewBag.Settings.TwoFAEnable)
+                            {
+                                <input type="checkbox" id="ckbTwoFAAuthentication" class="make-switch" tabindex="9" checked data-on-text="Yes" data-off-text="No" data-off-color="danger" data-on-color="default">
+
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="ckbTwoFAAuthentication" class="make-switch" tabindex="9" data-on-text="Yes" data-off-text="No" data-off-color="danger" data-on-color="default">
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" style="height:220px;">
+            <div class="panel-heading">
+                <div class="caption">
+                    <h3 class="panel-title"><i class="fa fa-edit panelIcon"></i> kinetic6</h3>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <!-- Release Notes -->
+                    <div class="col-md-12">
+                        <div class="col-md-5"></div>
+                        <div class="panel-body mitigateDetail col-md-7" id="mitigatePannel" style="height:300px;margin-left:-10px;">
+                            <div class="row rowSeprator" style="padding-bottom: 0px; border-bottom: none">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top:35px;">
+                                    <h5>© Copyright @DateTime.Now.Year</h5>
+                                </div>
+                            </div>
+                            <div class="row rowSeprator" style="padding-bottom: 0px; border-bottom: none">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="">
+                                    Release
+                                    <label id="lblVersion" style="margin-left: 0%; font-size: 11px"></label>
+                                    -
+                                    <a href="#" id="releaseNotes" onclick="window.open('@ViewBag.FileVersion', 'fullscreen=yes'); return false;">Release Notes</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Test Email -->
+
+<div id="ModalTestEmail" data-backdrop="static" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Test SMTP Settings</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label class="control-label">Email</label><span class="required">*</span>
+                            <input type="text" id="txbToEmail" class="form-control spinner" tabindex="2" placeholder="To Email">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="btn default" data-dismiss="modal">Cancel</a>
+                <a href="#" id="btnTestSMTPSettings" class="btn purple">Test</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var switchState = null;
+    var pageLoad = null;
+    $(document).ready(function () {
+        $("#settings").addClass("active");
+    });
+    $("#btnSaveSMTPSettings").on("click", function () {
+
+        var mailServer = $("#txtMailServer").val();
+        var smtpPort = $("#txtSMTPPort").val();
+        var mailUsername = $("#txtMailUsername").val();
+        var mailPassword = $("#txtMailPassword").val();
+        var enableSSL = $('#ckbEnableSSL').bootstrapSwitch('state');
+        if (mailServer == '') {
+            toastr.error("Please provide mail server.");
+            return false;
+        }
+        else if (smtpPort == '') {
+            toastr.error("Please provide smtp port.");
+            return false;
+        }
+        else if (mailUsername == '') {
+            toastr.error("Please provide mail username.");
+            return false;
+        }
+        else if (mailPassword == '') {
+            toastr.error("Please provide mail password.");
+            return false;
+        }
+        var url = '/Setting/SaveSettings';
+        var SMTPData = {
+            "SMTPHost": mailServer,
+            "SMTPPort": smtpPort,
+            "SMTPUserName": mailUsername,
+            "SMTPPassword": mailPassword,
+            "EnableSSL": enableSSL
+        };
+        var requestPerameters = {
+            "settings": SMTPData
+        };
+        AjaxPostRequestWithRequestPerameters(url, requestPerameters, function (response) {
+            if (response) {
+                toastr.success("SMTP settings save successfuly");
+            }
+            else {
+                toastr.error("Faild to save SMTP settings");
+            }
+        });
+    });
+
+    $("#btnTestSMTPSettings").on("click", function () {
+        var toEmail = $("#txbToEmail").val();
+        var mailServer = $("#txtMailServer").val();
+        var smtpPort = $("#txtSMTPPort").val();
+        var mailUsername = $("#txtMailUsername").val();
+        var mailPassword = $("#txtMailPassword").val();
+        var enableSSL = $('#ckbEnableSSL').bootstrapSwitch('state');
+        if (toEmail == '') {
+            toastr.error("Please provide email.");
+            return false;
+        }
+        else if (mailServer == '') {
+            toastr.error("Please provide mail server.");
+            return false;
+        }
+        else if (smtpPort == '') {
+            toastr.error("Please provide smtp port.");
+            return false;
+        }
+        else if (mailUsername == '') {
+            toastr.error("Please provide mail username.");
+            return false;
+        }
+        else if (mailPassword == '') {
+            toastr.error("Please provide mail password.");
+            return false;
+        }
+        var url = '/Setting/TestSMTPSettings';
+        var SMTPData = {
+            "SMTPHost": mailServer,
+            "SMTPPort": smtpPort,
+            "SMTPUserName": mailUsername,
+            "SMTPPassword": mailPassword,
+            "EnableSSL": enableSSL
+        };
+        var requestPerameters = {
+            "toEmail": toEmail,
+            "smtpSettings": SMTPData
+        };
+        AjaxPostRequestWithRequestPerameters(url, requestPerameters, function (response) {
+          
+            console.log(response.Feedback);
+            if (response.Feedback === "Sent email successfuly") {
+                toastr.success("Sent email successfuly");
+                $("#ModalTestEmail").modal("hide");
+            }
+            else {
+                toastr.error(response.Feedback);
+            }
+
+        });
+
+    });
+
+    $('#ckbTwoFAAuthentication').on('switchChange.bootstrapSwitch', function (event, state) {
+        debugger;
+        if (state && switchState == null && pageLoad == null) {
+            ShowConfirmationDialog('Enable 2FA', 'Are you sure want to enable 2FA?', function () {
+                var url = '/Setting/EnableDisableTwoFA';
+                var requestPerameters = {
+                    "state": state
+                };
+                AjaxPostRequestWithRequestPerameters(url, requestPerameters, function (response) {
+                    if (response) {
+                        toastr.success("Enable 2FA successfully.");
+                        $("#btnEnableAuthentication").removeClass("hidden");
+                        switchState = null;
+                    }
+                    else {
+                        toastr.error("Failed to enable 2FA");
+                        switchState = "123";
+                        $("#ckbTwoFAAuthentication").bootstrapSwitch('state', false);
+                    }
+                });
+            }, function () {
+                switchState = "123";
+                $("#ckbTwoFAAuthentication").bootstrapSwitch('state', false);
+            }, 'Yes');
+        }
+        else if (!state && switchState == null && pageLoad == null) {
+            ShowConfirmationDialog('Disable 2FA', 'Are you sure want to disable 2FA?', function () {
+                var url = '/Setting/EnableDisableTwoFA';
+                var requestPerameters = {
+                    "state": state
+                };
+                AjaxPostRequestWithRequestPerameters(url, requestPerameters, function (response) {
+                    if (response) {
+                        toastr.success("Disable 2FA successfully.");
+                        $("#btnEnableAuthentication").addClass("hidden");
+                        switchState = null;
+                    }
+                    else {
+                        toastr.error("Failed to disable 2FA");
+                        switchState = "123";
+                        $("#ckbTwoFAAuthentication").bootstrapSwitch('state', true);
+                    }
+                });
+            }, function () {
+                switchState = "123";
+                $("#ckbTwoFAAuthentication").bootstrapSwitch('state', true);
+            }, 'Yes');
+
+        }
+        else {
+            switchState = null;
+            pageLoad = null;
+        }
+    });
+    
+</script>

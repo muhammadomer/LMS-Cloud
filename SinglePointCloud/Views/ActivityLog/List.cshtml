@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" style="margin-left: 0px; margin-right: 0px;">
+    <div class="col-md-12" style="padding: 0px;">
+        <div class="portlet-body">
+            <table id="userActivityLogs" class="table table-hover" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th class="userName">
+                            Username
+                        </th>
+                        <th>
+                            Activity Name
+                        </th>
+                        <th class="activityTime">
+                            Activity Time
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var activity in ViewBag.Activities)
+                    {
+                        <tr>
+                            <td>@activity.FullName</td>
+                            <td>@activity.ActivityDetail</td>
+                            <td>@activity.ActivityTime</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#audits").addClass("active");
+        $('#userActivityLogs').dataTable({
+            "order": [],
+            "oLanguage": {
+                "oPaginate": {
+                    "sPrevious": "<i class='fa fa-angle-double-left'></i>", // This is the link to the previous page
+                    "sNext": "<i class='fa fa-angle-double-right'></i>", // This is the link to the next page
+                }
+            },
+            "lengthMenu": [[5, 10, 25, 50], [5, 10, 25, 50]],
+            "pageLength": 10,
+            destroy: true,
+            //"info": false,
+            //"bLengthChange": false,
+            //"paging": false,
+            //"searching": false,
+            //"bSort": false
+            //"ordering": false,
+            //"lengthChange": false
+
+        });
+    });
+</script>

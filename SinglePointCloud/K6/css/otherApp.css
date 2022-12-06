@@ -1,0 +1,30 @@
+.tile-body .fa, .headingStyle,
+.font-purple,
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    color: #000 !important;
+}
+
+.application-container, .bg-purple-studio,
+.userPic, .purple, .userPic:hover,
+.bg-after-purple:after, .bg-before-purple:before, .bg-hover-purple:hover,
+.portlet > .portlet-body.blue, .portlet.blue,
+.customIcon, .disabledCustomIcon, .table > thead:first-child > tr:first-child > th,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-danger,
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default,
+.FileUploadClass input {
+    background-color: #669999   !important;
+}
+
+.purple {
+    border-color: #669999   !important;
+}
+
+.multibutton li.active {
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1, #669999  ), color-stop(0, #669999  )) !important;
+    background-image: -webkit-linear-gradient(#669999  , #669999  ) !important;
+    border: solid 1px #669999   !important;
+}

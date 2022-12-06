@@ -1,0 +1,719 @@
+﻿@using Database
+@{
+    var Model = (Users)ViewBag.UserDetail;
+    var Settings = (Settings)ViewBag.Settings;
+    var AllowTrainingCourses = System.Configuration.ConfigurationManager.AppSettings["AllowTrainingCourses"].ToString();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    @*<title>Single Point Cloud</title>*@
+    @if (ViewBag.OtherApplication == "1")
+    {
+        <title>Compendium Framework Cloud</title>
+
+    }
+    else if (ViewBag.OtherApplication == "2")
+    {
+        <title>Training Management System</title>
+    }
+    else
+    {
+        <title>Single Point Cloud</title>
+    }
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Preview page of Metronic Admin Theme #3 for " name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="~/assets/global/plugins/icheck/skins/all.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" type="text/css" />
+    <link href="~/css/bootstrap-multiselect.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+    <link href="~/css/toastr.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+    <link href="~/css/jquery.dataTables.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+    <link href="~/css/typeahead.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="~/assets/global/css/components.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="~/assets/global/css/plugins.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" type="text/css" />
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="~/assets/layouts/layout3/css/layout.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" type="text/css" />
+    <link href="~/assets/layouts/layout3/css/themes/default.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="~/assets/layouts/layout3/css/custom.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" type="text/css" />
+    <script src="~/assets/global/plugins/jquery.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" type="text/javascript"></script>
+    <!--[if lt IE 9]-->
+    <script src="~/assets/global/plugins/respond.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/assets/global/plugins/excanvas.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/assets/global/plugins/ie8.fix.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <!--[endif]-->
+    <!-- BEGIN CORE PLUGINS -->
+
+    <script src="~/Scripts/jquery.validate.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/Scripts/qrcode.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/js.cookie.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.blockui.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" type="text/javascript"></script>
+
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="~/assets/global/scripts/app.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" type="text/javascript"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="~/assets/global/plugins/icheck/icheck.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/form-icheck.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" type="text/javascript"></script>
+    <script src="~/Scripts/toastr.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+
+    <script src="~/Scripts/bootstrap-multiselect.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/Scripts/pwstrength-bootstrap.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/Scripts/typeahead.bundle.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <script src="~/assets/layouts/layout3/scripts/layout.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" type="text/javascript"></script>
+    <script src="~/assets/layouts/layout3/scripts/demo.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" type="text/javascript"></script>
+    <script src="~/assets/layouts/global/scripts/quick-sidebar.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" type="text/javascript"></script>
+    <script src="~/assets/layouts/global/scripts/quick-nav.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" type="text/javascript"></script>
+    <!-- END THEME LAYOUT SCRIPTS -->
+    <script src="~/ApplicationScripts/security-PasswordValidations.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/ApplicationScripts/AjaxCommonMethods.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/ApplicationScripts/ValidationFields.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <!-- END THEME LAYOUT STYLES -->
+    <link rel="shortcut icon" href="images/icons/favicon/1/favicon.ico" type="image/x-icon" />
+
+
+    <style>
+        hr {
+            border-top: 1px solid #000;
+        }
+
+        .required {
+            color: red;
+        }
+
+        .purple {
+            color: #fff;
+            background-color: #6E2D91 !important;
+            border-color: #6E2D91 !important;
+            font-size: 14px;
+        }
+        /*Data table Css*/
+        .dataTables_filter input {
+            width: 150px;
+            height: 26px;
+            padding: 6px 10px;
+            background-color: #fff;
+            border: 1px solid #c2cad8;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+
+        .dataTables_filter label {
+            font-size: 13px;
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+
+        .dataTables_length select {
+            width: 70px;
+            height: 34px;
+            padding: 6px 12px;
+            background-color: #fff;
+            border: 1px solid #c2cad8;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+
+        .dataTables_length {
+            padding-bottom: 17px;
+        }
+
+        .sorting, .sorting_asc, .sorting_desc {
+            padding-left: 11px !important;
+        }
+
+        .table > thead:first-child > tr:first-child > th {
+            background-color: #6E2D91;
+            color: white;
+            font-size: 17px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .table > thead:first-child > tr:nth-child(2) > th {
+            background-color: #E4E4E4;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0px;
+        }
+
+        .paginate_button, .dataTables_paginate > .disabled {
+            background-color: #969696;
+            color: white !important;
+            border-radius: 4px !important;
+        }
+
+        table {
+            border: 1px solid #C0C0C0;
+            border-radius: 10px;
+        }
+
+        tr {
+            border-top: 1px solid #C0C0C0;
+        }
+
+            tr + tr {
+                border-top: 1px solid transparent;
+            }
+
+        td {
+            border-left: 1px solid #C0C0C0;
+        }
+
+        tr:last-child td {
+            border-bottom: 1px solid #C0C0C0;
+        }
+
+        td {
+            border-left: 1px solid transparent;
+        }
+
+        .even td, .even .sorting_1 {
+            background-color: #F1F1F1;
+            font-size: 13px;
+        }
+
+        .odd td, .odd .sorting_1 {
+            font-size: 13px;
+        }
+
+        tr td {
+            font-size: 13px !important;
+        }
+
+        .dataTables_paginate a {
+            font-size: 13px;
+        }
+        /*End Css data table*/
+
+
+
+        .navbar-default {
+            background-color: #f1f1f1;
+            border-color: #f1f1f1;
+        }
+
+            .navbar-default .navbar-nav > li > a {
+                color: #6E2D91;
+            }
+
+                .navbar-default .navbar-nav > li > a:hover {
+                    color: #6E2D91;
+                    background-color: transparent;
+                }
+
+            .navbar-default .navbar-nav > .active > a,
+            .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+                color: #6E2D91;
+                background-color: transparent;
+                font-weight: bold;
+            }
+
+        .customIcon {
+            padding: 3px 5px;
+            color: white;
+            background-color: #6E2D91;
+            margin: 1px;
+            border-radius: 3px;
+        }
+
+        .disabledCustomIcon {
+            padding: 3px 5px;
+            color: white;
+            background-color: #6e2d91;
+            margin: 1px;
+            border-radius: 3px;
+            opacity: 0.5;
+            cursor: no-drop;
+        }
+
+        .fa-angle-double-left, .fa-angle-double-right {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        .logout {
+            background-color: #E4E4E4;
+            padding: 5px 15px 5px 15px !important;
+            margin-top: 9px;
+            margin-bottom: 9px;
+            font-weight: 600;
+            border-radius: 5px !important;
+            border: solid 1px #E4E4E4;
+        }
+
+        .userPic {
+            color: white !important;
+            background-color: #6E2D91 !important;
+            font-size: 17px;
+            padding: 7px !important;
+            border-radius: 30px !important;
+            margin-top: 9px;
+            margin-right: 5px;
+        }
+
+            .userPic:hover {
+                color: white !important;
+                background-color: #6E2D91 !important;
+                font-size: 17px;
+                padding: 7px !important;
+                border-radius: 30px !important;
+                margin-top: 9px;
+                margin-right: 5px;
+            }
+
+        .control-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            font-size: 12px;
+        }
+
+        .pageHeading {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .table {
+            border-top: 0px;
+        }
+
+        .progress {
+            margin-bottom: 0px !important;
+        }
+
+        .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-danger {
+            background-color: #6E2D91;
+        }
+
+        .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default {
+            color: #fff;
+            background-color: #6E2D91;
+        }
+    </style>
+    @if (ViewBag.OtherApplication == "1")
+    {
+        <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon" />
+        <link href="~/css/otherApp.css" rel="stylesheet" />
+    }
+    else if (ViewBag.OtherApplication == "2")
+    {
+        <link rel="shortcut icon" href="~/K6/favicon.ico" type="image/x-icon" />
+        <link href="~/K6/css/otherApp.css" rel="stylesheet" />
+    }
+</head>
+<body>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+    {
+        @Html.AntiForgeryToken();
+    }
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar" style="padding: 0px 15px 0px 0px;">
+                <ul class="nav navbar-nav" style="margin-left: -15px;">
+                    <li id="accounts"><a href="@Url.Action("List","Account")">Accounts</a></li>
+                    <li id="users"><a href="@Url.Action("List","User")">Users</a></li>
+                    <li id="settings"><a href="@Url.Action("Index","Setting")">Settings</a></li>
+                    <li id="audits"><a href="@Url.Action("List","ActivityLog")">Audit Log</a></li>
+					<li id="TrainingCourses" class="@AllowTrainingCourses"><a href="#">Manage Courses</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown" id="userPic">
+                        <a class="dropdown-toggle" style="padding: 4px;" data-toggle="dropdown" href="#">
+                            <img id="menuProfileImage" src="~/images/user.png" style="width: 40px; border-radius: 20px !important;" />
+                        </a>
+                        <ul class="dropdown-menu" style="left: 0px">
+                            <li><a data-toggle='modal' href='#ModalChangePassword'>Change Password</a></li>
+                            <li>
+                                @if (Settings.TwoFAEnable)
+                                {
+                                    @*if (Model.TwoFactorEnabled)
+                                    {
+                                        <a href='#' id="btnEnableAuthentication">Disable Authenticator</a>
+                                    }
+                                    else
+                                    {
+                                        <a href='#' id="btnEnableAuthentication">Enable Authenticator</a>
+                                    }*@
+                                }
+                                else
+                                {
+                                    @*if (Model.TwoFactorEnabled)
+                                    {
+                                        <a href='#' id="btnEnableAuthentication" class="hidden">Disable Authenticator</a>
+                                    }
+                                    else
+                                    {
+                                        <a href='#' id="btnEnableAuthentication" class="hidden">Enable Authenticator</a>
+                                    }*@
+                                }
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="userName" id="userName" style="cursor: default;">@Model.UserFirstName @Model.UserLastName</a></li>
+                    @*<li id="TrainingCourses"><a href="@Url.Action("ManageTrainingCourses","ManageAccount")" target="_blank" style="margin-right:15px;" class="logout">Training Courses</a></li>*@
+                    <li id="logout"><a href="@Url.Action("Logout","User")" class="logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- BEGIN CONTAINER -->
+    <div class="container-fluid">
+        <!-- BEGIN CONTENT -->
+        @RenderBody()
+        <!-- END CONTENT -->
+    </div>
+    <!-- END CONTAINER -->
+    <div class="modal fade" id="main_confirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                </div>
+                <input type="hidden" id="deleteID" />
+                <input type="hidden" id="deleteURL" />
+                <div class="modal-body">
+                    <p style="margin: 0px;">Are you sure you want to Delete?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn purple btn-confirmation" data-dismiss="modal">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ModalChangePassword" data-backdrop="static" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" id="PasswordPopup">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Change Password</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Enter Old Password</label><span class="required">*</span>
+                                <input type="password" id="oldPassword" class="form-control spinner" placeholder="Enter Old Password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Enter New Password</label><span class="required">*</span>
+                                <input type="password" id="newPassword" class="form-control spinner" placeholder="Enter New Password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Confirm New Password</label><span class="required">*</span>
+                                <input type="password" id="confirmNewPassword" class="form-control spinner" placeholder="Confirm New Password">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn purple" id="btnChangePassword">Change Password</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="EableAuthenticator" data-backdrop="static" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Two-Factor Authentication</h4>
+                </div>
+                <div class="modal-body" style="padding-top: 0px;">
+                    <div class="row" style="border-bottom: 1px solid #e5e5e5;">
+                        <div class="col-md-2">
+                            <img src="/images/SampleImageForQRCodeScanner.png" />
+                        </div>
+                        <div class="col-md-10">
+                            <h3 style="font-size: 18px; font-weight: 400; margin-bottom: 0; margin-top: 15px;">
+                                Set up via Third Party Authenticator
+                            </h3>
+                            <p style="margin-top: 10px;font-size: 13px;">Please use your authentication app (such as Microsoft Authenticator, Free OTP or Google Authenticator) to scan this QR code.</p>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:25px;">
+                        <div class="col-md-6">
+                            <div id="qrcode" style="width: 200px; margin: auto;"></div>
+                        </div>
+                        <div class="col-md-5">
+                            <p style="text-align:center;">Or enter this code into your authentication app</p>
+                            <h5 id="sharedKey" style="text-align: center;text-transform: uppercase;font-weight: bold;"></h5>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:25px;">
+                        <div class="col-md-12">
+                            <input id="SecretKey" name="SecretKey" type="hidden" value="">
+                            <input id="BarcodeUrl" name="BarcodeUrl" type="hidden" value="">
+                            <div class="form-group">
+                                <label class="control-label">Please enter the confirmation code you see on your authentication app</label>
+                                <input autocomplete="off" class="form-control" id="txtCode" name="Code" type="text" value="">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a id="btnVerifyCode" style="margin-top: 10px;" class="btn purple">Verify</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ajaxLoader" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="~/images/ajax-loader.gif" alt="" class="loading" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            setHeartbeat();
+            var options = {};
+            options.common = {
+                minChar: 8
+            };
+            options.rules = {
+                activated: {
+                    wordTwoCharacterClasses: true,
+                    wordRepetitions: true,
+                    wordUppercase: true,
+                },
+                scores: { wordUppercase: 5 }
+            }
+            options.ui = {
+                //showErrors: true,
+                //showStatus: true
+            };
+            $('#newPassword').pwstrength(options);
+            $("#btnChangePassword").on("click", function () {
+                var oldPassword = $("#oldPassword").val();
+                var newPassword = $("#newPassword").val();
+                var confirmNewPassword = $("#confirmNewPassword").val();
+                var passwordValidation = validateUserPasswordWithConfirmPassword(newPassword, confirmNewPassword, 'NULL');
+                if (oldPassword == '') {
+                    toastr.error("Please provide Old Password");
+                    return false;
+                }
+                else if (newPassword == '') {
+                    toastr.error("Please provide New Password");
+                    return false;
+                }
+                else if (confirmNewPassword == '') {
+                    toastr.error("Please provide Confirm Password");
+                    return false;
+                }
+                else if (oldPassword == newPassword) {
+                    toastr.error("Old password and new password should not be same");
+                    return false;
+                }
+                else if (newPassword != confirmNewPassword) {
+                    toastr.error("New and confirm Password should be same");
+                    return false;
+                }
+                else if (passwordValidation != 'true') {
+                    toastr.error(passwordValidation);
+                    return false;
+                }
+                var changePasswordURL = "/User/ChangePassword";
+                var requestPerameters = {
+                    "oldPassword": oldPassword,
+                    "newPassword": newPassword
+                };
+                AjaxPostRequestWithRequestPerameters(changePasswordURL, requestPerameters, function (response) {
+
+                    if (response.Feedback == "1") {
+                        toastr.success("Password changed sucessfully");
+                        $("#ModalChangePassword").modal("hide");
+                        setTimeout(function () {
+                            window.location.href = "/User/Login";
+                        }, 1500);
+
+                    }
+                    else if (response.Feedback == "2") {
+                        toastr.error("Invalid Old Password");
+                    }
+                    else {
+                        toastr.error("Unable to change password");
+                    }
+                });
+            });
+            $('#ModalChangePassword').on('hidden.bs.modal', function () {
+                $("#oldPassword").val('');
+                $("#newPassword").val('');
+                $("#confirmNewPassword").val('');
+            });
+        });
+        ValidateEmail = function (email) {
+            email = email.trim();
+            if (email == "")
+                return true;
+            var re = /^(([^<>()[\]\\.,;:\s@@\"]+(\.[^<>()[\]\\.,;:\s@@\"]+)*)|(\".+\"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+        ValidateNumber = function (number) {
+            if (number != '') {
+                var testPattern = new RegExp("^\\+[0-9 ]+$");
+                var result = testPattern.test(number);
+                return result;
+            }
+        }
+        ShowConfirmationDialog = function (title, message, success, cancel, confirmationBtnText) {
+            $(".btn-confirmation").html(confirmationBtnText);
+            title = title ? title : 'Are you sure?';
+            var modal = $("#main_confirmation");
+            modal.find('.modal-footer .btn-default').show();
+            modal.find(".modal-title").html(title).end()
+                .find(".modal-body").html(message).end()
+                .modal({ backdrop: 'static', keyboard: false })
+                .on('hidden.bs.modal', function () {
+                    modal.unbind();
+                });
+            if (success) {
+                modal.one('click', '.modal-footer .btn-confirmation', success);
+            }
+            if (cancel) {
+                modal.one('click', '.modal-header .close, .modal-footer .btn-default', cancel);
+            }
+        };
+        $("#btnEnableAuthentication").on("click", function () {
+
+            if ($("#btnEnableAuthentication").text().trim() == "Disable Authenticator") {
+                ShowConfirmationDialog('Disable Aunthentication', 'Are you sure want to Disable Aunthentication?', function () {
+                    $("#ajaxLoader").modal("show");
+                    var url = '/Setting/DisableGoogleAuthenticator';
+                    AjaxPostRequestWithoutRequestPerameters(url, function (response) {
+                        if (response) {
+                            $("#ajaxLoader").modal("hide");
+                            $("#btnEnableAuthentication").text("Enable Authenticator");
+                            toastr.success("2FA Disabled successfully");
+                        }
+                        else {
+                            $("#ajaxLoader").modal("hide");
+                            toastr.error("Unable to Disable 2FA");
+                        }
+                    });
+                }, function () {
+                }, 'Yes');
+            }
+            else {
+                $("#ajaxLoader").modal("show");
+                var url = '/Setting/EnableGoogleAuthenticator';
+                AjaxPostRequestWithoutRequestPerameters(url, function (response) {
+                    if (response.Feedback != null) {
+                        if (response.Feedback[0] != '2') {
+
+                            $("#SecretKey").val(response.Feedback[0]);
+                            $("#BarcodeUrl").val(response.Feedback[1]);
+                            $("#sharedKey").text(response.Feedback[2]);
+                            $("#qrcode").empty();
+                            var qrcode = new QRCode("qrcode", {
+                                text: response.Feedback[1],
+                                width: 180,
+                                height: 180,
+                                colorDark: "#000",
+                                colorLight: "#ffffff",
+                                correctLevel: QRCode.CorrectLevel.H
+                            });
+                            $("#Code").focus();
+                            $("#ajaxLoader").modal("hide");
+                            $("#EableAuthenticator").modal("show");
+                        }
+                        else {
+                            $("#ajaxLoader").modal("hide");
+                            toastr.error("2FA is already enabled");
+                        }
+                    }
+                });
+            }
+        });
+        $("#btnVerifyCode").on("click", function () {
+            var secretKey = $("#SecretKey").val();
+            var code = $("#txtCode").val();
+            if (code == "") {
+                toastr.error("Please Provide Verification Code");
+                return false;
+            }
+            $("#ajaxLoader").modal("show");
+            var url = '/Setting/EnableGoogleAuthenticatorWithVerificationCode';
+            var requestPerameters = {
+                "Code": code,
+                "SecretKey": secretKey
+            };
+            AjaxPostRequestWithRequestPerameters(url, requestPerameters, function (response) {
+                if (response.Feedback != null) {
+                    $("#qrcode").empty();
+                    $("#txtCode").val('');
+                    $("#ajaxLoader").modal("hide");
+                    $('#EableAuthenticator').modal('hide');
+                    toastr.success("2FA enabled successfully. ");
+                    $('#btnEnableAuthentication').text("Disable Authenticator");
+                }
+                else {
+                    $("#ajaxLoader").modal("hide");
+                    toastr.error("Invalid 2FA Code ");
+                }
+            });
+        });
+        $("#TrainingCourses").on("click", function () {
+            window.open("@Url.Action("ManageTrainingCourses","ManageAccount")", "_blank");
+        });
+    </script>
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)*@
+</body>
+</html>

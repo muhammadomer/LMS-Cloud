@@ -1,0 +1,192 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f2f3f8;
+    height: 100vh;
+}
+
+.login-container {
+    width: 793px;
+    margin: 100px auto auto;
+    position: relative;
+    z-index: 5;
+}
+
+#login-box {
+    margin: 0 auto;
+    display: block;
+    /* width: 712px; */
+    /* margin: 7% auto; */
+    width: 100%;
+    float: left;
+    float: left;
+    width: 100%;
+    position: relative;
+    padding: 0 0 30px;
+    visibility: visible;
+}
+
+.login-logo {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+
+.login-box-body {
+    background: #fff;
+    padding: 28px 46px 33px 35px;
+    border-top: 0;
+    color: #666;
+    border: 1px solid #a9a9a9;
+    border-radius: 5px;
+}
+.col-signin {
+    flex: 0 0 39.4703656998739%;
+    max-width: 39.4703656998739%;
+    padding: 0 49px 0 32px;
+}
+
+.col-login-form {
+    flex: 0 0 60.5296343%;
+    max-width: 60.5296343%;
+    padding-left: 48px;
+    padding-right: 26px;
+}
+.sidenav {
+    display: block;
+}
+
+.sidenav h2 {
+    padding: 34px 0 12px 0;
+    margin: auto;
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 34px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 31px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #262626;
+}
+
+.sidenav-logo img {
+    margin: auto;
+    display: block;
+}
+
+p.message {
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    text-align: center;
+    color: #585858;
+}
+
+.sign-message {
+    display: block;
+    margin: auto;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.form-label {
+    font-family: "Poppins";
+    font-size: 16px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 10px;
+    letter-spacing: normal;
+    text-align: left;
+    color: #262626;
+    font-weight: normal;
+    padding-bottom: 4px;
+}
+
+.sign-in-btn {
+    width: 159px;
+}
+
+.btn-theme, .theme-btn {
+    background-color: #146936;
+    border-color: #146936;
+}
+
+    .btn-theme:hover, .theme-btn:hover {
+        background-color: #083d1d;
+        border-color: #083d1d;
+    }
+
+.footer.login-footer {
+    width: 100%;
+}
+
+.footer-link {
+    /* width: 100px; */
+    height: 13px;
+    margin: 0px 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.63;
+    letter-spacing: normal;
+    text-align: center;
+    color: #343335;
+    font-size: 13px;
+    /* height: 21px; */
+    border-right: 1px solid;
+    padding-right: 27px;
+    /* float: right; */
+    text-align: center;
+    line-height: 100%;
+    display: block;
+}
+
+.footer-content {
+    padding-top: 26px;
+    /* width: 1000px; */
+    /* width: 850px; */
+    display: flex;
+    margin: 0 auto;
+    /* vertical-align: middle; */
+    align-items: center;
+    justify-content: center;
+    /* flex-wrap: nowrap; */
+}
+
+.footer-container {
+    height: 181px;
+    min-height: 181px;
+    margin: 11px 0 0;
+    background: #a9a9a957;
+    bottom: 0;
+}
+
+.language-list {
+    max-width: 238px;
+    width: 100%;
+    padding-left: 16px;
+}
+
+
+.sidenav-logo {
+    padding-bottom: 5px;
+}
+
+.sidenav:before {
+    content: "";
+    position: absolute;
+    right: 0;
+    z-index: 100;
+    width: 1px;
+    max-height: 313px;
+    height: 100%;
+    background: #a9a9a9;
+    top: 7px;
+}

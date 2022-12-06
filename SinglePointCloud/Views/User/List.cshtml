@@ -1,0 +1,309 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- BEGIN PAGE CONTENT BODY -->
+<div class="row" style="margin-left: 0px; margin-right: 0px;">
+    <div class="col-md-12" style="padding: 0px;">
+        <div class="portlet-body">
+            <table id="userTable" class="table table-hover" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th colspan="10" style='padding-left: 10px;'>Users</th>
+                    </tr>
+                    <tr>
+                        <th>FIRST NAME</th>
+                        <th>LAST NAME</th>
+                        <th>USERNAME</th>
+                        <th>EMAIL</th>
+                        <th>DATE CREATED</th>
+                        <th style='width: 75px;'></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="ModalUserManagement" data-backdrop="static" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close closeGrayIcon" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="userManagementModalTitle">Add User</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="hidden" id="hdnUserId" />
+                            <label class="control-label">First Name</label><span class="required">*</span>
+                            <input type="text" id="txbFirstName" class="form-control spinner" tabindex="4" placeholder="First Name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Last Name</label><span class="required">*</span>
+                            <input type="text" id="txbLastName" class="form-control spinner" tabindex="4" placeholder="Last Name">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Email</label><span class="required">*</span>
+                            <input type="email" id="txbEmail" class="form-control spinner" tabindex="4" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">User Name</label><span class="required">*</span>
+                            <input type="text" id="txbUserName" class="form-control spinner" tabindex="4" placeholder="User Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="passwordSection">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Password</label><span class="required">*</span>
+                            <input type="password" id="txbPassword" autocomplete="off" class="form-control spinner" tabindex="4" placeholder="Password">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" id="accountStatusSection">
+                            <label class="control-label" style="margin-top: 6px;display:block; margin-right: 10px;display: block;">Active</label>
+                            <input type="checkbox" id="ckbActiveAccountSwitch" class="make-switch" tabindex="10" checked data-on-text="Yes" data-off-text="No" data-off-color="danger" data-on-color="default">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a data-dismiss="modal" class="btn default">Close</a>
+                <a class="btn purple" id="btnAddOrUpdate">Add</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var UserList = @Html.Raw(Json.Encode(@ViewBag.Users));
+    $(document).ready(function () {
+        $("#users").addClass("active");
+        $('#userTable').dataTable({
+            destroy: true,
+            "oLanguage": {
+                "oPaginate": {
+                    "sPrevious": "<i class='fa fa-angle-double-left'></i>", // This is the link to the previous page
+                    "sNext": "<i class='fa fa-angle-double-right'></i>", // This is the link to the next page
+                }
+            },
+            "pageLength": 10,
+            "info": false,
+            "aaSorting": [],
+            //"ordering": false,
+            //"lengthChange": false
+            initComplete: function () {
+                $(this.api().table().container()).find('input').parent().wrap('<form>').parent().attr('autocomplete', 'off');
+            }
+
+        });
+        $(".dataTables_length").empty();
+        $(".dataTables_length").append("<h3 class='pageHeading' style='margin: 8px 0px 0px 0px;font-weight:bold;float:left'>Users</h3><a  data-toggle='modal' href='#ModalUserManagement' class='btn purple' style='margin: 8px 0px 0px 10px;'>New<i style='margin-left: 10px;' class='fa fa-plus-circle'></i></a>");
+        $('#ModalUserManagement').on('hidden.bs.modal', function () {
+            $("#hdnUserId").val("");
+            $("#txbFirstName").val("");
+            $("#txbLastName").val("");
+            $("#txbEmail").val("");
+            $("#txbUserName").val("");
+            $("#txbPassword").val("");
+            $("#passwordSection").removeClass("hidden");
+            $("#ckbActiveAccountSwitch").bootstrapSwitch('state', false);
+            $("#accountStatusSection").removeClass("hidden")
+            $("#btnAddOrUpdate").text("Add");
+            $("#userManagementModalTitle").text("Add User");
+        });
+        LoadData();
+    });
+    LoadData = function ()
+    {
+        var url = '/User/GetUsers';
+        AjaxPostRequestWithoutRequestPerameters(url, function (response) {
+            console.log("Users");
+            console.log(response.UserList);
+            if (response.UserList != null) {
+                UserList = response.UserList;
+                $('#userTable').dataTable().fnClearTable();
+                $('#userTable').dataTable().fnDestroy();
+                $("#userTable").empty();
+                var tdHTML = '<thead><tr><th colspan="10" style="padding-left: 10px;">Users</th></tr><tr><th>FIRST NAME</th><th>LAST NAME</th><th>USERNAME</th><th>EMAIL</th><th>DATE CREATED</th><th style="width: 75px;"></th></tr></thead> <tbody>';
+                for (var i = 0; i < response.UserList.length; i++) {
+                    var d = new Date(parseInt((response.UserList[i].CreatedOn).match(/\d+/)[0]));
+                    var dateFormat = (d.getDate() + "").padStart(2, "0")
+                    + "-" + ((d.getMonth() + 1) + "").padStart(2, "0")
+                    + "-" + d.getFullYear();
+
+                    tdHTML += "<tr>";
+                    tdHTML += "<td>" + htmlEncode(response.UserList[i].UserFirstName) + "</td>";
+                    tdHTML += "<td>" + htmlEncode(response.UserList[i].UserLastName) + "</td>";
+                    tdHTML += "<td>" + htmlEncode(response.UserList[i].UserName) + "</td>";
+                    tdHTML += "<td>" + htmlEncode(response.UserList[i].UserEmail) + "</td>";
+                    tdHTML += "<td>" +  dateFormat + "</td>";
+                    tdHTML += "<td style='text-align: right;'>";
+                    tdHTML += "<a class='edit-user' href='#' data-id='" + response.UserList[i].EncryptedUserId + "' ><i class='fa fa-pencil customIcon'></i></a>";
+                    if (response.UserList[i].UserId != 1) {
+                        tdHTML += "<a class='delete-user' href='#' data-id='" + response.UserList[i].EncryptedUserId + "' ><i class='fa fa-times customIcon'></i></a>";
+                    }
+                    tdHTML += "</td>";
+                    tdHTML += "</tr>";
+                }
+                $("#userTable").append(tdHTML);
+                $('#userTable').dataTable({
+                    destroy: true,
+                    "oLanguage": {
+                        "oPaginate": {
+                            "sPrevious": "<i class='fa fa-angle-double-left'></i>", // This is the link to the previous page
+                            "sNext": "<i class='fa fa-angle-double-right'></i>", // This is the link to the next page
+                        }
+                    },
+                    "pageLength": 10,
+                    "info": false,
+                    "aaSorting": [],
+                    //"ordering": false,
+                    //"lengthChange": false
+                    initComplete: function () {
+                        $(this.api().table().container()).find('input').parent().wrap('<form>').parent().attr('autocomplete', 'off');
+                    }
+
+                });
+                $(".dataTables_length").empty();
+                $(".dataTables_length").append("<h3 class='pageHeading' style='margin: 8px 0px 0px 0px;font-weight:bold;float:left'>Users</h3><a  data-toggle='modal' href='#ModalUserManagement' class='btn purple' style='margin: 8px 0px 0px 10px;'>New<i style='margin-left: 10px;' class='fa fa-plus-circle'></i></a>");
+            }
+        });
+    }
+    $("#btnAddOrUpdate").on("click", function () {
+        var userId = $('#hdnUserId').val() == "" ? 0 : $('#hdnUserId').val();
+        var firstName = $("#txbFirstName").val();
+        var lastName = $("#txbLastName").val();
+        var email = $("#txbEmail").val();
+        var userName = $("#txbUserName").val();
+        var password = $("#txbPassword").val();
+        var active = $('#ckbActiveAccountSwitch').bootstrapSwitch('state'); // true || false
+        if (ValidateUserForm()) {
+            var url = '/User/AddOrUpdateUser';
+
+            var userData = {
+                "EncryptedUserId": userId,
+                "UserFirstName": firstName,
+                "UserLastName": lastName,
+                "UserName": userName,
+                "UserPassword": password,
+                "UserEmail": email,
+                "Active": active
+            };
+            var requestPerameters = {
+                "user": userData
+            }
+            AjaxPostRequestWithRequestPerameters(url, requestPerameters, function (response) {
+                if (response.Feedback == "1") {
+                    toastr.success("User added successfuly.");
+                    LoadData();
+                    $('#ModalUserManagement').modal("hide");
+                }
+                else if (response.Feedback == "2") {
+                    toastr.success("User updated successfuly.");
+                    LoadData();
+                    $('#ModalUserManagement').modal("hide");
+                }
+                else if (response.Feedback == "3")
+                    toastr.error("This Username already exist.");
+                else if (response.Feedback == "4")
+                    toastr.error("This Email already exist.");
+                else {
+                    toastr.error(response.Feedback);
+                }
+            });
+        }
+    });
+    $(document).on("click", ".edit-user", function (e) {
+        e.preventDefault
+        var userId = $(this).attr("data-id");
+        $("#hdnUserId").val(userId);
+        for (var i = 0; i < UserList.length; i++) {
+            if (userId == UserList[i].EncryptedUserId) {
+                $("#txbFirstName").val(UserList[i].UserFirstName);
+                $("#txbLastName").val(UserList[i].UserLastName);
+                $("#txbEmail").val(UserList[i].UserEmail);
+                $("#txbUserName").val(UserList[i].UserName);
+                $("#ckbActiveAccountSwitch").bootstrapSwitch('state', UserList[i].Active);
+                if (UserList[i].UserId == 1) $("#accountStatusSection").addClass("hidden");
+            }
+        }
+        $("#passwordSection").addClass("hidden");
+        $("#btnAddOrUpdate").text("Update");
+        $("#userManagementModalTitle").text("Update User");
+        $('#ModalUserManagement').modal("show");
+    });
+    $(document).on("click", ".delete-user", function (e) {
+        e.preventDefault
+        var userId = $(this).attr("data-id");
+        ShowConfirmationDialog('Delete ', 'Are you sure you want to delete this user?', function () {
+            //return false;
+            var requestPerameters = {
+                "userId": userId
+            };
+            var url = '/User/DeleteUser';
+            AjaxPostRequestWithRequestPerameters(url, requestPerameters, function (response) {
+                if (response.Feedback) {
+                    toastr.success("User deleted successfuly");
+                    LoadData();
+                }
+                else {
+                    toastr.error("Failed to delete user.");
+                }
+            });
+        }, null, 'Delete');
+    });
+    ValidateUserForm = function () {
+        var firstName = $("#txbFirstName").val();
+        var lastName = $("#txbLastName").val();
+        var email = $("#txbEmail").val();
+        var userName = $("#txbUserName").val();
+        var password = $("#txbPassword").val();
+        if (firstName == "") {
+            toastr.error("Please provide First Name.");
+            return false;
+        }
+        else if (lastName == "") {
+            toastr.error("Please provide Last Name.");
+            return false;
+        }
+        else if (email == "") {
+            toastr.error("Please provide Email.");
+            return false;
+        }
+        else if (!ValidateEmail(email)) {
+            toastr.error('The email address provided is not valid.');
+            return false;
+        }
+        else if (userName == "") {
+            toastr.error("Please provide User Name.");
+            return false;
+        }
+        else if (password == "" && $('#hdnUserId').val() == "") {
+            toastr.error("Please provide Password.");
+            return false;
+        }
+        else if (password.length <= 8 && $('#hdnUserId').val() == "") {
+            toastr.error("Password must be greater than 8 characters.");
+            return false;
+        }
+        return true;
+    }
+</script>
+<!-- END PAGE CONTENT BODY -->

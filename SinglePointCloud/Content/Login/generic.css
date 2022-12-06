@@ -1,0 +1,47 @@
+/******generic***********/
+.form-control.focus, .form-control:focus, .form-control.m-input--solid:focus {
+    border-color: #146936;
+    color: #575962;
+}
+
+a, .theme-link {
+    color: #007ba0;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+
+a:hover {
+    color: #09AFE1;
+    border-color: #343335;
+    text-decoration: underline;
+}
+
+.btn-theme, .theme-btn {
+    background-color: #146936;
+    border-color: #146936;
+    font-size: 16px;
+    color: #fff ;
+}
+    .btn-theme:hover, .theme-btn:hover {
+        background-color: #083d1d;
+        border-color: #083d1d;
+    }
+    .font-14{
+        font-size: 14px;
+    }
+
+.no-border {
+    border: 0 !important;
+}
+.required-star{
+    font-size: 10px;
+    font-weight: 900;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.82;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fe0101;
+}
+

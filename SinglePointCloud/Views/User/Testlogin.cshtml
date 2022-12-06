@@ -1,0 +1,417 @@
+﻿<html>
+@if (ViewBag.OtherApplication == "0")
+{
+    <head>
+        <title style="">Single Point Cloud - Login</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="~/css/bootstrap.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/toastr.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/index.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/uniform.default.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/components.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/plugins.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/layout.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/custom.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/default.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link rel="shortcut icon" href="~/images/icons/favicon/1/favicon.ico" type="image/x-icon" />
+        <link href="~/Content/Login/vendors.bundle.css" rel="stylesheet" />
+        <link href="~/Content/Login/style.bundle.css" rel="stylesheet" />
+        <link href="~/Content/Login/login.css" rel="stylesheet" />
+        <link href="~/Content/Login/generic.css" rel="stylesheet" />
+        <link href="~/Content/Login/theme.css" rel="stylesheet" />
+        <!--begin::Web font -->
+        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+        <script>
+            WebFont.load({
+                google: { "families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"] },
+                active: function () {
+                    sessionStorage.fonts = true;
+                }
+            });
+        </script>
+        <!--end::Web font -->
+        <script src="~/Content/Login/vendors.bundle.js"></script>
+        <script src="~/Content/Login/scripts.bundle.js"></script>
+    </head>
+}
+else if (ViewBag.OtherApplication == "1")
+{
+    <head runat="server">
+        <title style="">Compendium Framework Cloud - Login</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="~/css/bootstrap.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" type="text/css" />
+        <link href="~/css/toastr.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/index.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/uniform.default.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/components.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/plugins.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/layout.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/custom.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link href="~/css/default.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+        <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon" />
+        <link href="~/css/otherApp.css" rel="stylesheet" />
+        <link href="~/Content/Login/vendors.bundle.css" rel="stylesheet" />
+        <link href="~/Content/Login/style.bundle.css" rel="stylesheet" />
+        <link href="~/Content/Login/login.css" rel="stylesheet" />
+        <link href="~/Content/Login/generic.css" rel="stylesheet" />
+        <link href="~/Content/Login/theme.css" rel="stylesheet" />
+    </head>
+}
+<body>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+    {
+        @Html.AntiForgeryToken();
+    }
+    <!------ Include the above in your HEAD tag ---------->
+    @if (ViewBag.OtherApplication == "0")
+    {
+        <div class="login-container">
+            <div id="login-box">
+                <div class="login-logo">
+                    <a href="http://ichef-1.bbci.co.uk/news/660/cpsprodpb/17A21/production/_85310869_85310700.jpg">
+                        <img src="~/Content/Login/Elephant.png" width="284" height="110" alt="My Ad Cubes" />
+                    </a>
+                </div>
+                <div class="login-box-body">
+                    <div class=" row">
+                        <div class="col col-signin">
+                            <div class="pt-1 sidenav">
+                                <h2>Sign In</h2>
+                                <div class="sidenav-logo">
+                                    <img src="~/Content/Login/padlock.png" srcset="img/padlock@2x.png 2x,
+                                                img/padlock@3x.png 3x" class="Padlock">
+                                </div>
+                                <div class="sign-message">
+                                    <p class="message">Please sign in for secure access to your account</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="align- align-items-center col col-login-form d-flex">
+                            <div class="mb-3 mr-1 mt-3 pb-4 pr-4 pt-4 w-100">
+                                <form class="d-block">
+                                    <div class="form-group pb-2 ">
+                                        <label for="exampleInputEmail1" class="form-label">Username</label>
+                                        <input id="txbUserName" class="form-control theme-form-control" type="text" autocomplete="off" placeholder="Username" name="username" />
+                                    </div>
+                                    <div class="form-group pb-2">
+                                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                                        <input id="txbPassword" class="form-control theme-form-control" type="password" autocomplete="off" placeholder="Password" name="password" />
+                                    </div>
+
+                                    <button type="button" id="btnLogin" class="sign-in-btn btn btn-16 btn-height btn-success m-btn--wide-normal">Sign In</button>
+                                </form>
+                                <div class="pt-4">
+                                    <span class="d-block pt-3">Visit our website for more details. <a href="#">Click here</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="verificationcodemodal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Two-factor authentication required</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: center">
+                                <img style="max-width: 100%; max-height: 140px;" src="~/images/0/lock.png" />
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <p id="lblEmailVerificationDesc"></p>
+                                    <label class="control-label" id="lblForVericationCode"></label>
+                                    <input autocomplete="off" style="width: 150px;" class="form-control" id="txtVerificationCode" placeholder="Login code" name="Code" type="text" value="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="pull-left" style="margin-top: 7.5px;" id="linkResetTwoFA">Need to authenticate via email?</a>
+                        <a id="btnVerifyCode" class="btn purple">Verify</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (ViewBag.OtherApplication == "1")
+    {
+        <div class="login-container">
+            <div id="login-box">
+                <div class="login-logo">
+                    <a href="http://ichef-1.bbci.co.uk/news/660/cpsprodpb/17A21/production/_85310869_85310700.jpg">
+                        <img src="~/Content/Login/Elephant.png" width="284" height="110" alt="My Ad Cubes" />
+                    </a>
+                </div>
+                <div class="login-box-body">
+                    <div class=" row">
+                        <div class="col col-signin">
+                            <div class="pt-1 sidenav">
+                                <h2>Sign In</h2>
+                                <div class="sidenav-logo">
+                                    <img src="~/Content/Login/padlock.png" srcset="img/padlock@2x.png 2x,
+                                                img/padlock@3x.png 3x" class="Padlock">
+                                </div>
+                                <div class="sign-message">
+                                    <p class="message">Please sign in for secure access to your account</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="align- align-items-center col col-login-form d-flex">
+                            <div class="mb-3 mr-1 mt-3 pb-4 pr-4 pt-4 w-100">
+                                <form class="d-block">
+                                    <div class="form-group pb-2 ">
+                                        <label for="exampleInputEmail1" class="form-label">Username</label>
+                                        <input type="text" class="form-control theme-form-control" id="txbUserName" autocomplete="off" placeholder="Username" name="username">
+                                    </div>
+                                    <div class="form-group pb-2">
+                                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                                        <input type="password" class="form-control theme-form-control" id="txbPassword" autocomplete="off" placeholder="Password" name="password">
+                                    </div>
+
+                                    <button type="button" btnLogin class="sign-in-btn btn btn-16 btn-height btn-success m-btn--wide-normal">Sign In</button>
+                                </form>
+                                <div class="pt-4">
+                                    <span class="d-block pt-3">Visit our website for more details. <a href="#">Click here</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="verificationcodemodal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Two-factor authentication required</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: center">
+                                <img style="max-width: 100%; max-height: 140px;" src="~/images/1/lock.png" />
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <p id="lblEmailVerificationDesc"></p>
+                                    <label class="control-label" id="lblForVericationCode"></label>
+                                    <input autocomplete="off" style="width: 150px;" class="form-control" id="txtVerificationCode" placeholder="Login code" name="Code" type="text" value="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="pull-left" style="margin-top: 7.5px;" id="linkResetTwoFA">Need to authenticate via email?</a>
+                        <a id="btnVerifyCode" class="btn purple">Verify</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+
+    <div class="modal fade" id="ajaxLoader" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="~/images/ajax-loader.gif" alt="" class="loading" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/Scripts/bootstrap.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/Scripts/toastr.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/Scripts/jquery.validate.min.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script src="~/ApplicationScripts/AjaxCommonMethods.js?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]"></script>
+    <script>
+            $("body").keypress(function (event) {
+                if (event.which == 13) {
+                    // $("#Form").submit();
+                    // my function
+                }
+            });
+            window.onresize = function (event) {
+                ChangeWindowsSize();
+            };
+
+            function ChangeWindowsSize() {
+                $("#imgLogo").css("left", function () {
+                    $("#pointer").css("left", parseInt($("#imgLogo").css("left")) + 152);
+
+                    if (parseInt($("body").css("width")) <= 991)
+                        $("#pointer").css("width", parseInt($("body").css("width")) - 50 - parseInt($("#pointer").css("left")));
+                    else {
+                        var position = $("#loginView").position();
+                        var pointWidth = parseInt(position.left) + parseInt($("#loginView").css("width")) - parseInt($("#pointer").css("left")) - 18;
+
+                        $("#pointer").css("width", pointWidth);
+                    }
+                });
+                var screenSize = $(window).width();
+                console.log("Window size :" + screenSize);
+
+                $(".image-grey").attr("src", "../../images/Login_Background.png");
+                if (screenSize < 992) {
+                    $(".image-grey").attr("src", "../../images/image.png");
+                }
+            }
+
+            $(document).ready(function () {
+                var windowHeight = 75;
+                $("#test").css("margin-top", windowHeight);
+                $('<style> .image-container:after {top:' + (509 + windowHeight - 80) + 'px !important;background-position-y:' + (84 + windowHeight - 60) + 'px !important;} </style>').appendTo($('head'));
+                ChangeWindowsSize();
+                $(".image-grey").attr("src", "../../images/Login_Background.png");
+
+                $("#imgLogo").css("left", function () {
+                    $("#pointer").css("left", parseInt($("#imgLogo").css("left")) + 152);
+                });
+
+                $("#linkResetTwoFA").on("click", function () {
+                    var userName = $("#txbUserName").val();
+                    var password = $("#txbPassword").val();
+                    if (userName == "") {
+                        toastr.error("Please Provide Username");
+                        return false;
+                    }
+                    else if (password == "") {
+                        toastr.error("Please Provide Password");
+                        return false;
+                    }
+                    $("#ajaxLoader").modal("show");
+                    var requestPerameters = {
+                        "userName": userName,
+                        "password": password,
+                    };
+                    var url = '/User/Reset2FA';
+                    AjaxPostRequestWithRequestPerameters(url, requestPerameters, function (response) {
+                        if (response.Feedback) {
+                            $("#ajaxLoader").modal("hide");
+                            $("#lblForVericationCode").text("Enter Email Verification Code");
+                            toastr.success("Successfully Reset 2FA you enter email verification code for login");
+                        }
+                        else {
+                            $("#ajaxLoader").modal("hide");
+                            toastr.error("Unable to reset 2FA");
+                        }
+                    });
+                });
+                $("#btnVerifyCode").on("click", function () {
+                    VerifyCodeOnLogin();
+                });
+                var txbPasswordID = document.getElementById("txbPassword");
+                var txtVerificationCodeID = document.getElementById("txtVerificationCode");
+                txtVerificationCodeID.addEventListener("keydown", function (e) {
+                    if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+                        VerifyCodeOnLogin();
+                    }
+                });
+                txbPasswordID.addEventListener("keydown", function (e) {
+                    if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+                        LoginUser();
+                    }
+                });
+            });
+            $("#btnLogin").on("click", function () {
+                LoginUser();
+            });
+            VerifyCodeOnLogin = function () {
+                var verificationCode = $("#txtVerificationCode").val();
+                var userName = $("#txbUserName").val();
+                var password = $("#txbPassword").val();
+                if (userName == "") {
+                    toastr.error("Please Provide Username");
+                    return false;
+                }
+                else if (password == "") {
+                    toastr.error("Please Provide Password");
+                    return false;
+                }
+                else if (verificationCode == "") {
+                    toastr.error("Please provide 2FA verification code");
+                    return false;
+                }
+                $("#ajaxLoader").modal("show");
+                var requestPerameters = {
+                    "userName": userName,
+                    "password": password,
+                    "code": verificationCode
+                };
+                var url = '/User/VerifyCodeOnLogin';
+                AjaxPostRequestWithRequestPerameters(url, requestPerameters, function (response) {
+                    if (response.Feedback == "1") {
+                        var url = '@Url.Action("List", "Account")';
+                        window.location.href = url;
+                    }
+                    else if (response.Feedback == "2") {
+                        var url = '@Url.Action("ChangePassword", "User")';
+                        window.location.href = url;
+                    }
+                    else {
+                        $("#ajaxLoader").modal("hide");
+                        toastr.error(response.Feedback);
+                    }
+                });
+            }
+            LoginUser = function () {
+                var userName = $("#txbUserName").val();
+                var password = $("#txbPassword").val();
+                if (userName == "") {
+                    toastr.error("Please Provide Username");
+                    return false;
+                }
+                else if (password == "") {
+                    toastr.error("Please Provide Password");
+                    return false;
+                }
+                var requestPerameters = {
+                    "Username": userName,
+                    "Password": password
+                };
+                $("#ajaxLoader").modal("show");
+                var url = '/User/CheckUserAuthentication';
+                AjaxPostRequestWithRequestPerameters(url, requestPerameters, function (response) {
+                    console.log("response")
+                    console.log(response)
+                    if (response.Feedback == "1") {
+                        $("#ajaxLoader").modal("hide");
+                        var url = '@Url.Action("List", "Account")';
+                        window.location.href = url;
+                    }
+                    else if (response.Feedback == "2") {
+                        var url = '@Url.Action("ChangePassword", "User")';
+                        window.location.href = url;
+                    }
+                    else if (response.Feedback == "3") {
+                       $("#ajaxLoader").modal("hide");
+                       $("#lblForVericationCode").html("Enter the 6-digit code from your <b>code generator</b> or third-party app below.");
+                       $("#linkResetTwoFA").removeClass("hidden");
+                       $("#verificationcodemodal").modal("show");
+                    }
+                    else if (response.Feedback == "4") {
+                        $("#ajaxLoader").modal("hide");
+                        $("#linkResetTwoFA").addClass("hidden");
+                        $("#lblForVericationCode").text("Enter Email Verification Code");
+                        $("#lblEmailVerificationDesc").text("An email has been sent to " + response.LoggeninUserEmail + " which contains an authentication code which you will need to login.");
+                        $("#verificationcodemodal").modal("show");
+                    }
+                    else {
+                        $("#ajaxLoader").modal("hide");
+                        toastr.error(response.Feedback);
+                    }
+                });
+            }
+    </script>
+</body>
+</html>

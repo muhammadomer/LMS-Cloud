@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4bfada3ef92b4b3396fed1dae1cb7f2f" Name="Diagram1">
+        <EntityTypeShape EntityType="SinglePoint_CloudModel.ActivityLog" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SinglePoint_CloudModel.vw_GetActivityLog" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SinglePoint_CloudModel.Settings" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="SinglePoint_CloudModel.Users" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SinglePoint_CloudModel.Accounts" Width="1.5" PointX="3.375" PointY="3.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
