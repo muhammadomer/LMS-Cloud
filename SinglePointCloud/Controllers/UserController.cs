@@ -7,6 +7,7 @@ using SinglePointCloud.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -23,6 +24,12 @@ namespace SinglePointCloud.Controllers
         // GET: User
         public ActionResult List()
         {
+
+
+
+           
+
+
             if (UserDAL.GetCurrentUser() == null)
                 return RedirectToAction("Login", "User");
             ViewBag.Users = new UserDAL().GetUsers();

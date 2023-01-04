@@ -1,6 +1,11 @@
 ﻿
 @{
     Layout = null;
+
+
+ 
+
+
 }
 <!DOCTYPE html>
 <html>
@@ -42,28 +47,268 @@
 }
 else if (ViewBag.OtherApplication == "1")
 {
-    <head runat="server">
-        <title style="">Compendium Framework Cloud - Login</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="~/css/bootstrap.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
-        <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" type="text/css" />
-        <link href="~/css/toastr.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
-        <link href="~/css/index.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
-        <link href="~/css/uniform.default.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
-        <link href="~/css/components.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
-        <link href="~/css/plugins.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
-        <link href="~/css/layout.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
-        <link href="~/css/custom.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
-        <link href="~/css/default.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
-        <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon" />
-        <link href="~/css/otherApp.css" rel="stylesheet" />
-        <link href="~/Content/Login/vendors.bundle.css" rel="stylesheet" />
-        <link href="~/Content/Login/style.bundle.css" rel="stylesheet" />
-        <link href="~/Content/Login/login.css" rel="stylesheet" />
-        <link href="~/Content/Login/generic.css" rel="stylesheet" />
-        <link href="~/Content/Login/theme.css" rel="stylesheet" />
-    </head>
+<head runat="server">
+    <title style="">Compendium Framework Cloud - Login</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/css/bootstrap.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" type="text/css" />
+    <link href="~/css/toastr.min.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+    <link href="~/css/index.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+    <link href="~/css/uniform.default.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+    <link href="~/css/components.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+    <link href="~/css/plugins.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+    <link href="~/css/layout.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+    <link href="~/css/custom.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+    <link href="~/css/default.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon" />
+    <link href="~/css/otherApp.css" rel="stylesheet" />
+    <link href="~/css/style.bundle.css?v=@System.Web.Configuration.WebConfigurationManager.AppSettings["myKey"]" rel="stylesheet" />
+    <link href="~/Content/Login/vendors.bundle.css" rel="stylesheet" />
+    <link href="~/Content/Login/style.bundle.css" rel="stylesheet" />
+    <link href="~/Content/Login/login.css" rel="stylesheet" />
+    <link href="~/Content/Login/generic.css" rel="stylesheet" />
+    <link href="~/Content/Login/theme.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f2f3f8;
+            height: 100vh;
+        }
+
+        .login-container {
+            width: 793px;
+            margin: 106px auto 132px;
+            /*margin: 217px auto 145px;*/
+            position: relative;
+            z-index: 5;
+        }
+
+        #login-box {
+            margin: 0 auto;
+            display: block;
+            /* width: 712px; */
+            /* margin: 7% auto; */
+            width: 100%;
+            float: left;
+            
+            width: 100%;
+            position: relative;
+            padding: 0 0 30px;
+            visibility: visible;
+        }
+
+        .w-373 {
+            width: 373px;
+        }
+
+        .login-logo {
+            font-size: 35px;
+            text-align: center;
+            margin-bottom: 0px;
+            font-weight: 300;
+            width:38.2%;
+            background-color:white;
+            margin-left:15px;
+            height:90px;
+        }
+        .login-Text {
+            font-size: 35px;
+            text-align: center;
+            margin-bottom: 0px;
+            font-weight: 300;
+            width: 62%;
+            background-color: white;
+           
+        }
+        .login-box-body {
+            background: #fff;
+            padding: 0px;
+            border-top: 0;
+            color: #666;
+            border: 0px solid #a9a9a9;
+            /*border-radius: 5px !important;*/
+        }
+
+        .sidenav {
+            display: block;
+            padding-top: 45px !important;
+        }
+
+            .sidenav h2 {
+                padding-bottom: 30px;
+                margin: auto;
+                display: block;
+                font-family: 'Poppins', sans-serif;
+                font-size: 34px;
+                font-weight: 500;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 31px;
+                letter-spacing: normal;
+                text-align: center;
+                color: #262626;
+            }
+
+        .sidenav-logo img {
+            margin: auto;
+            display: block;
+        }
+
+        p.message {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.43;
+            letter-spacing: normal;
+            text-align: center;
+            color: #585858;
+        }
+
+        .sign-message {
+            display: block;
+            margin: auto;
+            text-align: center;
+            padding: 5px 0;
+            width: 225px;
+        }
+
+        .form-label {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 10px;
+            letter-spacing: normal;
+            text-align: left;
+            color: #262626;
+            font-weight: normal;
+            padding-bottom: 4px;
+            margin-left: -3px;
+        }
+
+        .Sign-in-Button {
+            border-radius: 4px !important;
+            background-color: #1A6935;
+            width: 160px;
+        }
+
+        .visit-website {
+            font-family: 'Roboto', sans-serif;
+            font-weight: normal;
+            color: #272528;
+        }
+
+        .btn-theme, .theme-btn {
+            background-color: #00529b;
+            border-color: #146936;
+        }
+
+            .btn-theme:hover, .theme-btn:hover {
+                background-color: #00529b;
+                border-color: #083d1d;
+            }
+
+        .footer.login-footer {
+            width: 100%;
+        }
+
+        .footer-link {
+            /* width: 100px; */
+            height: 13px;
+            margin: 0px 13px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 0.63;
+            letter-spacing: normal;
+            text-align: center;
+            color: #343335;
+            font-size: 13px;
+            /* height: 21px; */
+            border-right: 1px solid;
+            padding-right: 27px;
+            /* float: right; */
+            text-align: center;
+            line-height: 100%;
+            display: block;
+        }
+
+        .footer-content {
+            padding-top: 26px;
+            /* width: 1000px; */
+            /* width: 850px; */
+            display: flex;
+            margin: 0 auto;
+            /*  vertical-align: middle; */
+            align-items: center;
+            justify-content: center;
+            /* flex-wrap: nowrap; */
+        }
+
+        .footer-container {
+            height: 100% !important;
+            min-height: 81px;
+            margin: 11px 0 0;
+            background: #f2f3f8;
+            /* position: inherit; */
+            /* bottom: 0; */
+            /* left: 0; */
+            /* right: 0; */
+        }
+
+        .language-list {
+            max-width: 238px;
+            width: 100%;
+            padding-left: 16px;
+        }
+
+
+        .sidenav-logo {
+            padding-bottom: 20px;
+        }
+
+        .sidenav:before {
+            content: "";
+            position: absolute;
+            right: 0;
+            z-index: 100;
+            width: 0px;
+            max-height: 313px;
+            height: 100%;
+            background: #a9a9a9;
+            top: 7px;
+        }
+
+        .footer {
+            /* position:absolute;*/
+            font-size: 13px;
+            bottom: 0;
+            width: 100%;
+            height: 100px; /* Height of the footer */
+            background: #e6e7ec;
+        }
+
+        .footer-divider {
+            margin: 0 25px 0 25px;
+        }
+
+        @@media (min-height: 850px) {
+            .f-height {
+                position: absolute;
+            }
+        }
+
+        .margin-bottom {
+            margin-bottom: -10px;
+        }
+    </style>
+</head>
 }
 else if (ViewBag.OtherApplication == "2")
 {
@@ -288,50 +533,75 @@ else if (ViewBag.OtherApplication == "2")
     }
     else if (ViewBag.OtherApplication == "1")
     {
-        <div class="login-container">
-            <div id="login-box">
-                <div class="login-logo">
-                    <a href="http://ichef-1.bbci.co.uk/news/660/cpsprodpb/17A21/production/_85310869_85310700.jpg">
-                        <img src="~/Content/Login/Elephant.png" width="284" height="110" alt="My Ad Cubes" />
-                    </a>
-                </div>
-                <div class="login-box-body">
-                    <div class=" row">
-                        <div class="col col-signin">
-                            <div class="pt-1 sidenav">
-                                <h2>Sign In</h2>
-                                <div class="sidenav-logo">
-                                    <img src="~/Content/Login/padlock.png" srcset="img/padlock@2x.png 2x,
-                                                img/padlock@3x.png 3x" class="Padlock">
-                                </div>
-                                <div class="sign-message">
-                                    <p class="message">Please sign in for secure access to your account</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="align- align-items-center col col-login-form d-flex">
-                            <div class="mb-3 mr-1 mt-3 pb-4 pr-4 pt-4 w-100">
-                                <form class="d-block">
-                                    <div class="form-group pb-2 ">
-                                        <label for="exampleInputEmail1" class="form-label">Username</label>
-                                        <input id="txbUserName" class="form-control theme-form-control" type="text" autocomplete="off" placeholder="Username" name="username" />
-                                    </div>
-                                    <div class="form-group pb-2">
-                                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                                        <input id="txbPassword" class="form-control theme-form-control" type="password" autocomplete="off" placeholder="Password" name="password" />
-                                    </div>
+<div class="login-container">
 
-                                    <button type="button" id="btnLogin" class="sign-in-btn btn btn-16 btn-height btn-success m-btn--wide-normal">Sign In</button>
-                                </form>
-                                <div class="pt-4">
-                                    <span class="d-block pt-3">Visit our website for more details. <a href="#">Click here</a></span>
-                                </div>
-                            </div>
+    <div id="login-box">
+
+        <div class="row">
+            <div class="login-logo">
+                <img src="~/images/Elephant-1.png" alt="logo" style="margin-top:5px"  />
+
+            </div>
+            <div class="login-text">
+                <p style=" padding-top: 20px;font-family:Bahnschrift ;font-size: 34px; color:white ;  background-color: #8CC63E; width: 493px; margin-bottom: 0px; height: 90px; text-align: center ">Training you'll never forget</p>
+
+            </div>
+        </div>
+      
+
+        <div class="login-box-body">
+
+
+
+            <div class=" row">
+                <div class="col" style="flex: 0 0 40%;max-width: 40%;padding-right: 19px;padding-left: 13px;">
+                    <div class="pt-1 sidenav">
+                        <h2>Sign In</h2>
+                        <div class="sidenav-logo">
+                            <img src="~/Images/padlock1.png" class="Padlock" />
+                        </div>
+                        <div class="sign-message">
+                            <p class="message">
+                                Please sign in for secure access to your account
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="align- align-items-center col-7-- col d-flex  pr-0" style="flex: 0 0 60%;
+        max-width: 60%;
+        padding-left: 48px;background-color:#edeaea
+">
+                    <div class="mb-3 mt-3  pt-4 w-100" style=" ">
+                        <div class="form-group  ">
+                            <label class="form-label" for="UserName">
+                                Username
+                            </label>
+                            <input autocomplete="off" class="form-control w-373" placeholder="Username" type="text" data-validate="true" data-msg-selector=".username-error" data-required="true" data-message="Username is required" id="txbUserName" name="UserName" value="" />
+                            <span class="validation-error username-error"></span>
+                        </div>
+
+                        <div class="form-group pt-1">
+                            <label class="form-label" for="Password">
+                                Password
+                            </label>
+                            <input autocomplete="off" class="form-control w-373" placeholder="Password" type="password" data-validate="true" data-msg-selector=".password-error" data-required="true" data-message="Password is required" id="txbPassword" name="PasswordHash" value="" />
+                            <span class="validation-error password-error"></span>
+                        </div>
+
+                        <button id="btnLogin" class="mt-2 Sign-in-Button btn btn-16 btn-height  m-btn--wide-normal"><span style="color:white">Sign In</span></button>
+                       
+                        <div class="">
+                            <span class="d-block mt-1 pt-2 visit-website"></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+
+
+    </div>
         <div class="modal fade" id="verificationcodemodal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
@@ -540,7 +810,7 @@ else if (ViewBag.OtherApplication == "2")
                 $("#imgLogo").css("left", function () {
                     $("#pointer").css("left", parseInt($("#imgLogo").css("left")) + 152);
                 });
-
+                getDLLVersion();
                 $("#linkResetTwoFA").on("click", function () {
                     var userName = $("#txbUserName").val();
                     var password = $("#txbPassword").val();
@@ -674,7 +944,22 @@ else if (ViewBag.OtherApplication == "2")
                         toastr.error(response.Feedback);
                     }
                 });
-            }
+        }
+
+
+        getDLLVersion = function () {
+
+        
+            var url = '/Base/GetDLLVersion';
+            AjaxPostRequestWithoutRequestPerameters(url,  function (response) {
+                $("#dllversion").text(response.DllVersion);
+
+
+
+            });
+        }
+
+
     </script>
 </body>
 </html>

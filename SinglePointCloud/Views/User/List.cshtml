@@ -94,6 +94,8 @@
 <script>
     var UserList = @Html.Raw(Json.Encode(@ViewBag.Users));
     $(document).ready(function () {
+        $('#accounts').removeAttr('style');
+        $('#accounts').css("color", "#ffffff !important");
         $("#users").addClass("active");
         $('#userTable').dataTable({
             destroy: true,
@@ -114,7 +116,7 @@
 
         });
         $(".dataTables_length").empty();
-        $(".dataTables_length").append("<h3 class='pageHeading' style='margin: 8px 0px 0px 0px;font-weight:bold;float:left'>Users</h3><a  data-toggle='modal' href='#ModalUserManagement' class='btn purple' style='margin: 8px 0px 0px 10px;'>New<i style='margin-left: 10px;' class='fa fa-plus-circle'></i></a>");
+        $(".dataTables_length").append("<a  data-toggle='modal' href='#ModalUserManagement' class='btn purple' style='margin: 8px 0px 0px 10px;'>New<i style='margin-left: 10px;' class='fa fa-plus-circle'></i></a>");
         $('#ModalUserManagement').on('hidden.bs.modal', function () {
             $("#hdnUserId").val("");
             $("#txbFirstName").val("");
@@ -182,7 +184,7 @@
 
                 });
                 $(".dataTables_length").empty();
-                $(".dataTables_length").append("<h3 class='pageHeading' style='margin: 8px 0px 0px 0px;font-weight:bold;float:left'>Users</h3><a  data-toggle='modal' href='#ModalUserManagement' class='btn purple' style='margin: 8px 0px 0px 10px;'>New<i style='margin-left: 10px;' class='fa fa-plus-circle'></i></a>");
+                $(".dataTables_length").append("<a  data-toggle='modal' href='#ModalUserManagement' class='btn purple' style='margin: 8px 0px 0px 10px;'>New<i style='margin-left: 10px;' class='fa fa-plus-circle'></i></a>");
             }
         });
     }

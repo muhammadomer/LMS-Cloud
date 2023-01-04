@@ -112,6 +112,7 @@ button, input, optgroup, select, textarea {
 
 button {
     overflow: visible;
+   
 }
 
 button, select {
@@ -248,6 +249,7 @@ td, th {
 
     .btn > .caret, .dropup > .btn > .caret {
         border-top-color: #000 !important;
+       
     }
 
     .label {

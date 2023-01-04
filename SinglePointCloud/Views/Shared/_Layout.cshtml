@@ -220,7 +220,7 @@
 
 
         .navbar-default {
-            background-color: #f1f1f1;
+            background-color: #8CC63E;
             border-color: #f1f1f1;
         }
 
@@ -235,9 +235,10 @@
 
             .navbar-default .navbar-nav > .active > a,
             .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
-                color: #6E2D91;
+                color: #fff!important;
                 background-color: transparent;
                 font-weight: bold;
+
             }
 
         .customIcon {
@@ -264,13 +265,14 @@
         }
 
         .logout {
-            background-color: #E4E4E4;
+          /*//  background-color: #E4E4E4;*/
             padding: 5px 15px 5px 15px !important;
             margin-top: 9px;
             margin-bottom: 9px;
             font-weight: 600;
             border-radius: 5px !important;
-            border: solid 1px #E4E4E4;
+            color:white!important;
+           /* border: solid 1px #E4E4E4;*/
         }
 
         .userPic {
@@ -322,6 +324,16 @@
             color: #fff;
             background-color: #6E2D91;
         }
+        .seperator::after {
+            padding-left: 15px;
+            line-height: 0px;
+            content: ' ';
+            border-right: 2px solid #245c6f;
+            font-size: 9px;
+            position: relative;
+            top:0px;
+           padding-right:-10px;
+        }
     </style>
     @if (ViewBag.OtherApplication == "1")
     {
@@ -349,49 +361,33 @@
                 </button>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar" style="padding: 0px 15px 0px 0px;">
+
                 <ul class="nav navbar-nav" style="margin-left: -15px;">
-                    <li id="accounts"><a href="@Url.Action("List","Account")">Accounts</a></li>
-                    <li id="users"><a href="@Url.Action("List","User")">Users</a></li>
-                    <li id="settings"><a href="@Url.Action("Index","Setting")">Settings</a></li>
-                    <li id="audits"><a href="@Url.Action("List","ActivityLog")">Audit Log</a></li>
-					<li id="TrainingCourses" class="@AllowTrainingCourses"><a href="#">Manage Courses</a></li>
+                    @*<li id="accounts"><a href="@Url.Action("List","Account")">Accounts</a></li>
+        <li id="users"><a href="@Url.Action("List","User")">Users</a></li>
+        <li id="settings"><a href="@Url.Action("Index","Setting")">Settings</a></li>
+        <li id="audits"><a href="@Url.Action("List","ActivityLog")">Audit Log</a></li>
+        <li id="TrainingCourses" class="@AllowTrainingCourses"><a href="#">Manage Courses</a></li>*@
+                    <li><img src="~/images/Elephant-TMS-black-Logo-AW-02.png" width="100" height="40" style="padding-left:15px;padding-top:10px"/></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown" id="userPic">
-                        <a class="dropdown-toggle" style="padding: 4px;" data-toggle="dropdown" href="#">
-                            <img id="menuProfileImage" src="~/images/user.png" style="width: 40px; border-radius: 20px !important;" />
-                        </a>
-                        <ul class="dropdown-menu" style="left: 0px">
-                            <li><a data-toggle='modal' href='#ModalChangePassword'>Change Password</a></li>
-                            <li>
-                                @if (Settings.TwoFAEnable)
-                                {
-                                    @*if (Model.TwoFactorEnabled)
-                                    {
-                                        <a href='#' id="btnEnableAuthentication">Disable Authenticator</a>
-                                    }
-                                    else
-                                    {
-                                        <a href='#' id="btnEnableAuthentication">Enable Authenticator</a>
-                                    }*@
-                                }
-                                else
-                                {
-                                    @*if (Model.TwoFactorEnabled)
-                                    {
-                                        <a href='#' id="btnEnableAuthentication" class="hidden">Disable Authenticator</a>
-                                    }
-                                    else
-                                    {
-                                        <a href='#' id="btnEnableAuthentication" class="hidden">Enable Authenticator</a>
-                                    }*@
-                                }
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#" class="userName" id="userName" style="cursor: default;">@Model.UserFirstName @Model.UserLastName</a></li>
+
+                    @*<li><a href="#" class="userName" id="userName" style="cursor: default;">@Model.UserFirstName @Model.UserLastName</a></li>*@
                     @*<li id="TrainingCourses"><a href="@Url.Action("ManageTrainingCourses","ManageAccount")" target="_blank" style="margin-right:15px;" class="logout">Training Courses</a></li>*@
-                    <li id="logout"><a href="@Url.Action("Logout","User")" class="logout">Logout</a></li>
+
+
+                    <li style="width:100px" id="accounts" ><a href="@Url.Action("List","Account")" class="seperator">Accounts</a></li>
+                    
+                    <li style="width:74px" id="users"><a href="@Url.Action("List","User")" class="seperator">Users</a></li>
+                    <li style="width:89px" id="settings"><a href="@Url.Action("Index","Setting")" class="seperator">Settings</a></li>
+                    <li style="width:98px" id="audits"><a href="@Url.Action("List","ActivityLog")" class="seperator">Audit Log</a></li>
+                    <li style="width:145px" id="TrainingCourses" class="@AllowTrainingCourses"><a href="#" class="seperator">Manage Courses</a></li>
+                    <li style="width:153px" id="changepass"><a data-toggle='modal' href='#ModalChangePassword' class="seperator">Change Password</a></li>
+                    <li id="logout">
+                        <a href="@Url.Action("Logout","User")" class="logout">
+                            Logout
+                            <img src="/images/k6-close.png" height="22" width="24" style="margin-left: 2px;margin-right: 0px;" />
+                        </a></li>
                 </ul>
             </div>
         </div>
@@ -539,7 +535,17 @@
                 //showStatus: true
             };
             $('#newPassword').pwstrength(options);
+
+            $("#changepass").on("click", function () {
+                $("#changepass").addClass("active");
+                $("#settings").removeClass("active");
+                $("#accounts").removeClass("active");
+                $("#users").removeClass("active");
+                $("#audits").removeClass("active");
+                $("#TrainingCourses").removeClass("active");
+            });
             $("#btnChangePassword").on("click", function () {
+              
                 var oldPassword = $("#oldPassword").val();
                 var newPassword = $("#newPassword").val();
                 var confirmNewPassword = $("#confirmNewPassword").val();
@@ -709,6 +715,12 @@
             });
         });
         $("#TrainingCourses").on("click", function () {
+            $("#TrainingCourses").addClass("active");
+            $("#settings").removeClass("active");
+            $("#accounts").removeClass("active");
+            $("#users").removeClass("active");
+            $("#audits").removeClass("active");
+            $("#changepass").removeClass("active");
             window.open("@Url.Action("ManageTrainingCourses","ManageAccount")", "_blank");
         });
     </script>

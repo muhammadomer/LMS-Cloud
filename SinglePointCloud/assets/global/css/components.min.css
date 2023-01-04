@@ -2474,7 +2474,8 @@ li [class*=" icon-"], li [class^=icon-] {
 }
 
 .btn {
-    outline: 0 !important
+    outline: 0 !important;
+    border-radius: 5px !important;
 }
 
     .btn:hover {

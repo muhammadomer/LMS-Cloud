@@ -5,7 +5,7 @@
 .navbar-default .navbar-nav > li > a:focus,
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
-    color: #3f51b5 !important;
+    color: #000000 ;
 }
 
 .application-container, .bg-purple-studio,
@@ -16,7 +16,8 @@
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-danger,
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default,
 .FileUploadClass input {
-    background-color: #3f51b5 !important;
+    background-color: #1A6935 !important;
+   
 }
 
 .purple {
@@ -27,4 +28,5 @@
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1, #3f51b5), color-stop(0, #3f51b5)) !important;
     background-image: -webkit-linear-gradient(#3f51b5, #3f51b5) !important;
     border: solid 1px #3f51b5 !important;
+    border-radius: 20px !important;
 }

@@ -272,11 +272,11 @@
 }
 
     .dataTables_wrapper .dataTables_length {
-        float: left
+        float: right
     }
 
     .dataTables_wrapper .dataTables_filter {
-        float: right;
+        float: left;
         text-align: right
     }
 

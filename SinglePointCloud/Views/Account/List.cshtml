@@ -8,7 +8,12 @@
     var AllowTrainingCourses = System.Configuration.ConfigurationManager.AppSettings["AllowTrainingCourses"].ToString();
     var AllowFileRepository = System.Configuration.ConfigurationManager.AppSettings["AllowFileRepository"].ToString();
 }
-
+<style>
+    #userTable.dataTables_filter {
+        float: right;
+        text-align: right;
+    }
+</style>
 
 <!-- BEGIN PAGE CONTENT BODY -->
 <div class="row" style="margin-left: 0px; margin-right: 0px;">
@@ -17,7 +22,7 @@
             <table id="userTable" class="table table-hover" style="width: 100%">
                 <thead>
                     <tr>
-                        <th colspan="12" style='padding-left: 10px;'>Accounts</th>
+                        @*<th colspan="12" style='padding-left: 10px;'>Accounts</th>*@
                     </tr>
                     <tr>
                         <th>Account Id</th>
@@ -229,6 +234,7 @@
     var selectedCourses = [];
     $(document).ready(function () {
         $("#accounts").addClass("active");
+       
         $('#userTable').dataTable({
             destroy: true,
             "oLanguage": {
@@ -262,8 +268,8 @@
 
 
 
-        $(".dataTables_length").empty();
-        $(".dataTables_length").append("<h3 class='pageHeading' style='margin: 8px 0px 0px 0px;font-weight:bold;float:left'>Accounts</h3><a  data-toggle='modal' href='#ModalAccountManagement' class='btn purple' style='margin: 8px 0px 0px 10px;'>New<i style='margin-left: 10px;' class='fa fa-plus-circle'></i></a>");
+        //$(".dataTables_length").empty();
+        //$(".dataTables_length").append("<a  data-toggle='modal' href='#ModalAccountManagement' class='btn purple' style='margin: 8px 0px 0px 900px;'>New<i style='margin-left: 10px;' class='fa fa-plus-circle'></i></a>");
         $('#ModalAccountManagement').on('hidden.bs.modal', function () {
             $("#hdnAccountId").val("");
             $("#txbUserID").val("");
@@ -359,7 +365,7 @@
 
                 });
                 $(".dataTables_length").empty();
-                $(".dataTables_length").append("<h3 class='pageHeading' style='margin: 8px 0px 0px 0px;font-weight:bold;float:left'>Accounts</h3><a  data-toggle='modal' href='#ModalAccountManagement' class='btn purple' style='margin: 8px 0px 0px 10px;'>New<i style='margin-left: 10px;' class='fa fa-plus-circle'></i></a>");
+                $(".dataTables_length").append("<a  data-toggle='modal' href='#ModalAccountManagement' class='btn purple' >New<i style='margin-left: 10px;' class='fa fa-plus-circle'></i></a>");
             }
         });
     }

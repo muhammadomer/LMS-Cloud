@@ -4,6 +4,7 @@ using SinglePointCloud.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -25,7 +26,23 @@ namespace SinglePointCloud.Controllers
                 ViewBag.UserDetail = userEntity;
                 ViewBag.Settings = new SettingDAL().GetSettings();
                 ViewBag.OtherApplication = ConfigurationManager.AppSettings["OtherApplication"].ToString();
+
+              
             }
         }
+
+        public JsonResult GetDLLVersion()
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string version = fvi.FileVersion;
+
+            version = version.Substring(0, 5); 
+            
+            return Json(new { DllVersion = version }, JsonRequestBehavior.AllowGet);
+        }
+
     }
+
+
 }
