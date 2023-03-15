@@ -55,7 +55,7 @@ namespace Database.DAL
                 string EmailTextChange = "Single Point";
                 if (Convert.ToInt32(ConfigurationManager.AppSettings["OtherApplication"]) == 1)
                 {
-                    EmailTextChange = "Compendium Framework";
+                    EmailTextChange = "Elephant-TMS";
                 }
 
                 MailMessage mail = new MailMessage();

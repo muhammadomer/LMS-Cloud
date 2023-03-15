@@ -252,11 +252,13 @@ namespace Database.DAL
                 int decryptedAccountId = Convert.ToInt32(Cryptography.Cryptography.Decrypt(accountId));
                 Accounts account = SinglePoint_CloudEntities.Accounts.Where(x => x.AccountId == decryptedAccountId).SingleOrDefault();
                 string username = account.UserName;
+                
                 account.IsDeleted = true;
                 account.Active = false;
                 SinglePoint_CloudEntities.Accounts.AddOrUpdate(account);
                 SinglePoint_CloudEntities.SaveChanges();
                 ActivityLogDAL.LogActivity("Account with ID (" + account.UserID + ") has been deleted");
+                ChangeUserEmailAddressesOfDeletedAccount(account.AccountId,account.TrainingCoursesCompanyId);
                 return true;
             }
             catch (Exception ex)
@@ -738,6 +740,90 @@ namespace Database.DAL
             }
 
         }
+        public void ChangeUserEmailAddressesOfTrainingCourses(int CompanyId)
+        {
+            try
+            {
+               
+                    var client = new RestClient(TC_APIUrl + "api/UserService/ChangeDeletedAccountUserEmailAddress?CompanyId=" + CompanyId);
+                    var request = new RestRequest(Method.GET);
+                    IRestResponse response = client.Execute(request);
+                    int StatusCode = (int)response.StatusCode;
+                //Console.WriteLine(response.Content);
+                LogApp.Log4Net.WriteLog(response.Content,LogType.GENERALLOG);
+                
+               
+            }
+            catch (Exception ex)
+            {
+                Log4Net.WriteLog("Exception Occur while connecting to tc", LogType.GENERALLOG);
+             
+            }
+
+        }
+        public void ChangeUserEmailAddressesOfDeletedAccount(int AccountId,int TC_CompanyId)
+        {
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                SqlDataAdapter adpt = new SqlDataAdapter();
+                DataSet ds = new DataSet();
+                
+
+                Log4Net.WriteLog("Connection String: " , LogType.GENERALLOG);
+
+                using (SqlConnection conn = new SqlConnection("data source=.\\SQLEXPRESS;initial catalog=test_singlepoint_" + AccountId.ToString() + ";user id=sa;password=3ncrY973df!L3"))
+                {
+                    Log4Net.WriteLog("Connection String: "+conn.ConnectionString, LogType.GENERALLOG);
+
+                    if (conn.State != ConnectionState.Open)
+                        conn.Open();
+
+                    Log4Net.WriteLog("Connection Opened.", LogType.GENERALLOG);
+                    cmd.CommandText = "select * from users";
+                    adpt.SelectCommand = cmd;
+
+                    cmd.Connection = conn;
+                    adpt.Fill(ds);
+
+                    int c = ds.Tables[0].Rows.Count;
+                    for(int i=0; i<c; i++)
+                    {
+                       string id= ds.Tables[0].Rows[i]["id"].ToString();
+
+                        Log4Net.WriteLog("username: " + ds.Tables[0].Rows[i]["username"].ToString(), LogType.GENERALLOG);
+
+
+                        cmd.CommandText = "update users " +
+                                          " set email='" + id + "@elephant-tms.com'" +
+                                          ",username=" + id +
+                                          ",isdeleted=1" +
+                                            ",isactive=0" +
+
+                                          " where id=" + id;
+                        cmd.ExecuteNonQuery();
+
+                    }
+                    ChangeUserEmailAddressesOfTrainingCourses(TC_CompanyId);
+                    //cmd.ExecuteNonQuery();
+
+                    if (conn.State == ConnectionState.Open)
+                        conn.Close();
+                    // return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log4Net.WriteException(ex);
+                //return null;
+            }
+
+        }
+
+
+
+
         public class NewCompanyValues
         {
             public int CompanyId { get; set; }
